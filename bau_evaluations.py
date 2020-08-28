@@ -19,6 +19,9 @@ class baupy():
         self.values = pd.read_csv(path, sep=';')
         self.Raumgewicht = self.values.Raumgewicht
         self.Mächtigkeit = self.values.Mächtigkeit
+        self.Ve = self.values.Ve
+        self.We = self.values.We
+        
         
     def av_raumgewicht(self):
         
@@ -26,13 +29,22 @@ class baupy():
         av_raumgewicht = np.zeros(no_layers)
         thickness = np.zeros(no_layers)
         thickness[0] = self.values.Mächtigkeit[0]
-        av_raumgewicht = self.values.Raumgewicht[0]
+        av_raumgewicht[0] = self.values.Raumgewicht[0]
+        
         for i in range(1,no_layers):
-            print(i)
             thickness[i] = self.Mächtigkeit[i] + thickness[i-1]
-            av_raumgewicht[i] = (self.Raumgewicht[i]*self.Mächtigkeit[i] + av_raumgewicht[i-1]*thickness[i-1])*thickness[i]
+            av_raumgewicht[i] = (self.Raumgewicht[i]*self.Mächtigkeit[i] + av_raumgewicht[i-1]*thickness[i-1])/thickness[i]
         self.thickness = thickness
         self.av_raumgewicht = av_raumgewicht
+        
+    # def Me(self):
+        
+    #     sigma_atm = 100
+        
+    #     Me = self.Ve*sigma_atm(self.av_raumgewicht/sigma_atm)^self.We 
+        
+    #     self.Me = Me
+        
         
         
 
