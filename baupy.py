@@ -13,7 +13,7 @@ class kennwerte():
     def __init__(self, path):
         
         self.path = path
-        self.values = pd.read_csv(path, sep='\t')
+        self.values = pd.read_excel(path)#, sheetname=None)
         self.Raumgewicht = self.values.Raumgewicht
         self.Mächtigkeit = self.values.Mächtigkeit
         self.Ve = self.values.Ve
@@ -44,7 +44,7 @@ class kennwerte():
             av_raumgewicht[i] = (self.Raumgewicht[i]*self.Mächtigkeit[i] + av_raumgewicht[i-1]*thickness[i-1])/thickness[i]
         self.av_raumgewicht = av_raumgewicht
         
-    def Me(self):
+    def calc_Me(self):
         
         try: self.av_raumgewicht
         except: self.calc_av_raumgewicht()
