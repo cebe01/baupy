@@ -16,7 +16,7 @@ class baupy():
     def __init__(self, path):
         
         self.path = path
-        self.values = pd.read_csv(path, sep=';')
+        self.values = pd.read_csv(path, sep='\t')
         self.Raumgewicht = self.values.Raumgewicht
         self.Mächtigkeit = self.values.Mächtigkeit
         self.Ve = self.values.Ve
@@ -37,13 +37,26 @@ class baupy():
         self.thickness = thickness
         self.av_raumgewicht = av_raumgewicht
         
-    # def Me(self):
+    def Me(self):
         
-    #     sigma_atm = 100
+        sigma_atm = 100
+        Ve = self.Ve
+        We = self.We
+        thickness = self.thickness
+        av_raumgewicht = self.av_raumgewicht
+        Me_max = Ve*sigma_atm*(av_raumgewicht*thickness/sigma_atm)**We/1000
+        thick_min = np.zeros(len(thickness))
+        thick_min[1::] = thickness[0:-1]
+        Me_min = Ve*sigma_atm*(av_raumgewicht*thick_min/sigma_atm)**We/1000
+        self.Me_max = Me_max
+        self.Me_min = Me_min
         
-    #     Me = self.Ve*sigma_atm(self.av_raumgewicht/sigma_atm)^self.We 
+    def save_kennwerte(self):
         
-    #     self.Me = Me
+        to_save = pd.DataFrame(self.values)
+        to_save.loc[:,'Me_min'] = self.Me_min
+        to_save.loc[:,'Me_max'] = self.Me_max
+        to_save.to_excel('kennwerte.xlsx')
         
         
         
@@ -52,8 +65,10 @@ class baupy():
 
 
 
-path = r'C:\Users\CB.MAGMA\Documents\GitHub\baupy\kennwerte_streichholzstrasse.csv'
+path = r'/home/cb/Dokumente/GitHub/baupy/kennwerte_streichholzstrasse.txt'
 
 
 container = baupy(path)
 container.av_raumgewicht()
+container.Me()
+container.save_kennwerte()
