@@ -15,7 +15,7 @@ import baupy as bp
 
 
 
-path = '/home/cb/Dokumente/GitHub/baupy/kennwerte.xlsx'# r'/home/cb/Dokumente/GitHub/baupy/kennwerte_streichholzstrasse.txt'
+path = 'C:/Users/CB.MAGMA/Documents/GitHub/baupy/kennwerte.xlsx'# r'/home/cb/Dokumente/GitHub/baupy/kennwerte_streichholzstrasse.txt'
 
 
 container = bp.kennwerte(path)

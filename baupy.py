@@ -14,10 +14,15 @@ class kennwerte():
         
         self.path = path
         self.values = pd.read_excel(path)#, sheetname=None)
-        self.Raumgewicht = self.values.Raumgewicht
+        self.Raumgewicht = self.values.Raumgewicht 
         self.Mächtigkeit = self.values.Mächtigkeit
         self.Ve = self.values.Ve
         self.We = self.values.We
+        self.Material = self.values.Material
+        try: self.thickness = self.values.Thickness 
+        except: pass
+        self.Kohäsion = self.values.Kohäsion
+        self.Reibungswinkel = self.values.Reibungswinkel
         
     
     def calc_thickness(self):
@@ -63,9 +68,14 @@ class kennwerte():
         
     def save_kennwerte(self):
         
-        to_save = pd.DataFrame(self.values)
+        to_save = pd.DataFrame()
+        to_save.loc[:,'Material'] = self.Material
+        to_save.loc[:,'Mächtigkeit'] = self.Mächtigkeit
+        to_save.loc[:, 'Thickness'] = self.thickness
+        to_save.loc[:,'Raumgewicht'] = self.Raumgewicht
+        to_save.loc[:,'Reibungswinkel'] = self.Reibungswinkel
+        to_save.loc[:,'Kohäsion'] = self.Kohäsion
         to_save.loc[:,'Me_min'] = self.Me_min
         to_save.loc[:,'Me_max'] = self.Me_max
-        to_save.loc[:,'Thickness'] = self.thickness
         to_save.to_excel('kennwerte.xlsx')
         
