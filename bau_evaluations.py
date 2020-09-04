@@ -20,5 +20,6 @@ path = 'C:/Users/CB.MAGMA/Documents/GitHub/baupy/kennwerte.xlsx'# r'/home/cb/Dok
 
 container = bp.kennwerte(path)
 #container.av_raumgewicht()
-container.calc_Me()
-container.save_kennwerte()
+#container.calc_Me()
+#container.save_kennwerte()
+container.calc_slope(5,3)
