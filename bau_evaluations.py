@@ -15,11 +15,12 @@ import baupy as bp
 
 
 
-path = 'C:/Users/CB.MAGMA/Documents/GitHub/baupy/kennwerte.xlsx'# r'/home/cb/Dokumente/GitHub/baupy/kennwerte_streichholzstrasse.txt'
+path = r'X:\Cb\20 198 Baugrund Haspelstrasse Niederhasli\Berechnungen\kennwerte.xlsx'# r'/home/cb/Dokumente/GitHub/baupy/kennwerte_streichholzstrasse.txt'
 
 
 container = bp.kennwerte(path)
-#container.av_raumgewicht()
-#container.calc_Me()
-#container.save_kennwerte()
-container.calc_slope(5,3)
+container.calc_thickness()
+container.calc_av_raumgewicht()
+container.calc_Me()
+container.save_kennwerte()
+#container.calc_slope(5,3)

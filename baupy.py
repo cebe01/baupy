@@ -43,12 +43,14 @@ class kennwerte():
         except: self.calc_thickness()
         
         thickness = self.thickness
-        no_layers = len(self.values.Raumgewicht)
+        no_layers = len(self.Raumgewicht)#values.Raumgewicht)
         av_raumgewicht = np.zeros(no_layers)
-        av_raumgewicht[0] = self.values.Raumgewicht[0]
+        av_raumgewicht[0] = self.Raumgewicht[0]
         
         for i in range(1,no_layers):
             av_raumgewicht[i] = (self.Raumgewicht[i]*self.Mächtigkeit[i] + av_raumgewicht[i-1]*thickness[i-1])/thickness[i]
+        
+            print(av_raumgewicht)
         self.av_raumgewicht = av_raumgewicht
         
     def calc_Me(self):
@@ -79,7 +81,9 @@ class kennwerte():
         to_save.loc[:,'Kohäsion'] = self.Kohäsion
         to_save.loc[:,'Me_min'] = self.Me_min
         to_save.loc[:,'Me_max'] = self.Me_max
-        to_save.to_excel('kennwerte.xlsx')
+        to_save.loc[:,'Ve'] = self.Ve
+        to_save.loc[:,'We'] = self.We
+        to_save.to_excel(self.path)#'kennwerte.xlsx')
         
     def calc_slope(self, hmax):#, gw_level):
         
